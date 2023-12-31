@@ -1,5 +1,7 @@
 #ifndef MEMBER_H
 #define MEMBER_H
+#include "person.h"
+#include "book.h"
 #include <string>
 #include <vector>
 class Member : public Person {
