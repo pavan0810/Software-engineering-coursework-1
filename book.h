@@ -1,5 +1,5 @@
-#ifndef BOOKS_H
-#define BOOKS_H
+#ifndef BOOK_H
+#define BOOK_H
 #include "member.h"
 #include <string>
 #include <vector>
