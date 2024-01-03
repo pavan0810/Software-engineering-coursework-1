@@ -2,7 +2,9 @@
 #include "catch.hpp"
 #include "person.h"
 #include "book.h"
+#include "member.h"
 
+// test for person class
 TEST_CASE("Testing Person class", "[Person]"){
   Person person1;
   person1.setName("yash");
@@ -22,6 +24,7 @@ TEST_CASE("Testing Person class", "[Person]"){
   }
 }
 
+// test for book class
 TEST_CASE("Testing Book class", "[Book]"){
   Book book1(1,"Harry Potter", "JK", "Rowling");
     
@@ -43,3 +46,23 @@ TEST_CASE("Testing Book class", "[Book]"){
   }
 }
 
+TEST_CASE("Testing member class", "[Member]"){
+
+  Member member1(1, "yash","La Rosa", "yash@mail.com");
+
+  SECTION("Testing getName() function"){
+    REQUIRE(member1.getName() == "yash");
+  }
+
+  SECTION("Testing getAddress() function"){
+    REQUIRE(member1.getAddress() == "La Rosa");
+  }
+
+  SECTION("Testing getEmail() function"){
+    REQUIRE(member1.getEmail() == "yash@mail.com");
+  }
+
+  SECTION("Testing getMemberID() function"){
+    REQUIRE(member1.getMemberID() == "1");
+  }
+}
