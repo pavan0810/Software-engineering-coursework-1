@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 class Member : public Person {
-  
  public:
   Member(int ID, std::string name, std::string address, std:: string email);
   std::string getMemberID() const;

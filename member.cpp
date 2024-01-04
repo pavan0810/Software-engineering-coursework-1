@@ -18,4 +18,5 @@ std::vector<Book> Member::getBooksBorrowed() const{
 }
 
 void Member::setBooksBorrowed(Book book){
+  book = book;
 }
