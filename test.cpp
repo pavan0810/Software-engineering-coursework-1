@@ -3,6 +3,7 @@
 #include "person.h"
 #include "book.h"
 #include "member.h"
+#include "librarian.h"
 
 // test for person class
 TEST_CASE("Testing Person class", "[Person]"){
@@ -46,6 +47,7 @@ TEST_CASE("Testing Book class", "[Book]"){
   }
 }
 
+// Test for Member class
 TEST_CASE("Testing member class", "[Member]"){
 
   Member member1(1, "yash","La Rosa", "yash@mail.com");
@@ -64,5 +66,30 @@ TEST_CASE("Testing member class", "[Member]"){
 
   SECTION("Testing getMemberID() function"){
     REQUIRE(member1.getMemberID() == "1");
+  }
+}
+
+// Testing Librarian class
+TEST_CASE("Testing Librarian class", "[Librarian]"){
+  Librarian librarian1(1, "yash", "La Rosa", "yash@example.com", 40000);
+  
+  SECTION("Testing getStaffID() function"){
+    REQUIRE(librarian1.getStaffID() == 1);
+  }
+
+  SECTION("Testing getSalary() function"){
+    REQUIRE(librarian1.getSalary() == 40000);
+  }
+
+  SECTION("Testing getName() function"){
+    REQUIRE(librarian1.getName() == "yash");
+  }
+  
+  SECTION("Testing getAddress() function"){
+    REQUIRE(librarian1.getAddress() == "La Rosa");
+  }
+  
+  SECTION("Testing getEmail() function"){
+    REQUIRE(librarian1.getEmail() == "yash@example.com");
   }
 }
