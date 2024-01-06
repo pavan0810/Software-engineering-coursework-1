@@ -4,6 +4,7 @@
 #include "book.h"
 #include "member.h"
 #include "librarian.h"
+#include "date.h"
 
 // test for person class
 TEST_CASE("Testing Person class", "[Person]"){
@@ -91,5 +92,22 @@ TEST_CASE("Testing Librarian class", "[Librarian]"){
   
   SECTION("Testing getEmail() function"){
     REQUIRE(librarian1.getEmail() == "yash@example.com");
+  }
+}
+
+// Test for date ADT
+TEST_CASE("Testing date ADT", "[Date]"){
+  Date birthdate(8,10,2002);
+  
+  SECTION("Testing getDay() function"){
+    REQUIRE(birthdate.getDay() == 8);
+  }
+  
+  SECTION("Testing getMonth() function"){
+    REQUIRE(birthdate.getMonth() == 10);
+  }
+  
+  SECTION("Testing getYear() function"){
+    REQUIRE(birthdate.getYear() == 2002);
   }
 }
