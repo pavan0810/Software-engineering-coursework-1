@@ -23,16 +23,16 @@ std::string Book::getAuthorLastName() const{
   return authorLastName;
 }
 
-// Date Book::getDueDate() const{
-//   return dueDate;
-// }
+Date Book::getDueDate() const{
+  return dueDate;
+}
 
-// void Book::setDueDate(Date dueDate){
-//   dueDate = due_date;
-// }
+void Book::setDueDate(Date dueDate){
+  dueDate = due_date;
+}
 
 void Book::returnBook(){
 }
 
-// void Book::borrowBook(Member borrower, Date dueDate){
-// }
+void Book::borrowBook(Member borrower, Date dueDate){
+}
