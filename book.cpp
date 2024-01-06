@@ -1,10 +1,10 @@
 #include "book.h"
 #include <string>
-Book::Book(int bookId, std::string book_name, std::string author_first_name, std::string author_last_name){
-  bookID = bookId;
-  bookName = book_name;
-  authorFirstName = author_first_name;
-  authorLastName = author_last_name;
+Book::Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName){
+  this->bookID = bookID;
+  this->bookName = bookName;
+  this->authorFirstName = authorFirstName;
+  this->authorLastName = authorLastName;
 }
 
 std::string Book::getbookID() const{
@@ -27,7 +27,7 @@ std::string Book::getAuthorLastName() const{
 //   return dueDate;
 // }
 
-// void Book::setDueDate(Date due_date){
+// void Book::setDueDate(Date dueDate){
 //   dueDate = due_date;
 // }
 

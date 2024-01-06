@@ -1,13 +1,13 @@
 #include "person.h"
 #include <string>
-void Person::setName(std::string person_name) {
-  name = person_name;
+void Person::setName(std::string name) {
+  this->name = name;
 }
-void Person::setAddress(std::string person_address) {
-  address = person_address;
+void Person::setAddress(std::string address) {
+  this->address = address;
 }
-void Person::setEmail(std::string person_email) {
-  email = person_email;
+void Person::setEmail(std::string email) {
+  this->email = email;
 }
 
 std::string Person::getName() const {

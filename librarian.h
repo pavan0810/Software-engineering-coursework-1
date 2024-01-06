@@ -14,10 +14,10 @@ class Librarian : public Person {
   int getStaffID() const;
   void setStaffID(int staffID);
   int getSalary() const;
-  void setSalary(int librarian_salary);
+  void setSalary(int salary);
   
  private:
-  int staffid;
+  int staffId;
   int salary;
 };
 #endif

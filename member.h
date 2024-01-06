@@ -6,7 +6,7 @@
 #include <vector>
 class Member : public Person {
  public:
-  Member(int ID, std::string name, std::string address, std:: string email);
+  Member(int memberID, std::string name, std::string address, std:: string email);
   std::string getMemberID() const;
   std::vector<Book> getBooksBorrowed() const;
   void setBooksBorrowed(Book book);

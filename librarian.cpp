@@ -24,17 +24,17 @@ void Librarian::calcFine(int memberID) {
 }
 
 int Librarian::getStaffID() const {
-  return staffid;
+  return staffId;
 }
 
 void Librarian::setStaffID(int staffID){
-  staffid = staffID;
+  staffId = staffID;
 }
 
 int Librarian::getSalary() const {
   return salary;
 }
 
-void Librarian::setSalary(int librarian_salary){
-  salary = librarian_salary;
+void Librarian::setSalary(int salary){
+  this->salary = salary;
 }

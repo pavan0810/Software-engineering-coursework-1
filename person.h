@@ -4,11 +4,11 @@
 class Person {
  public:
   std::string getName() const;
-  void setName(std::string person_name);
+  void setName(std::string name);
   std::string getAddress() const;
-  void setAddress(std::string person_address);
+  void setAddress(std::string address);
   std::string getEmail() const;
-  void setEmail(std::string person_email);
+  void setEmail(std::string email);
   
  private:
   std::string name;

@@ -5,13 +5,13 @@
 #include <vector>
 class Book {
  public:
-  Book(int bookId, std::string book_name, std::string author_first_name, std::string author_last_name);
+  Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName);
   std::string getbookID() const;
   std::string getbookName() const;
   std::string getAuthorFirstName() const;
   std::string getAuthorLastName() const;
   // Date getDueDate() const;
-  // void setDueDate(Date due_date);
+  // void setDueDate(Date dueDate);
   void returnBook();
   // void borrowBook(Member borrower, Date dueDate);
  private:

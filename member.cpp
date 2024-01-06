@@ -2,11 +2,11 @@
 #include <string>
 #include <vector>
 
-Member::Member(int ID, std::string name, std::string address, std:: string email){
+Member::Member(int memberID, std::string name, std::string address, std:: string email){
   setName(name);
   setAddress(address);
   setEmail(email);
-  memberId = ID;
+  this->memberId = memberID;
 }
 
 std::string Member::getMemberID() const{
