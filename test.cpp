@@ -25,7 +25,6 @@ TEST_CASE("Testing Person class", "[Person]"){
     REQUIRE(person1.getEmail() == "y@example.com");
   }
 }
-
 // test for book class
 TEST_CASE("Testing Book class", "[Book]"){
   Book book1(1,"Harry Potter", "JK", "Rowling");
@@ -34,42 +33,32 @@ TEST_CASE("Testing Book class", "[Book]"){
     REQUIRE(book1.getbookID() == "1");
     
   }
-
   SECTION("testing getbookName() function"){
     REQUIRE(book1.getbookName() == "Harry Potter");
   }
-
   SECTION("testing getAuthorFirstName() function"){
     REQUIRE(book1.getAuthorFirstName() == "JK");
   }
-
   SECTION("testing getookID() function"){
     REQUIRE(book1.getAuthorLastName() == "Rowling");
   }
 }
-
 // Test for Member class
 TEST_CASE("Testing member class", "[Member]"){
-
   Member member1(1, "yash","La Rosa", "yash@mail.com");
-
   SECTION("Testing getName() function"){
     REQUIRE(member1.getName() == "yash");
   }
-
   SECTION("Testing getAddress() function"){
     REQUIRE(member1.getAddress() == "La Rosa");
   }
-
   SECTION("Testing getEmail() function"){
     REQUIRE(member1.getEmail() == "yash@mail.com");
   }
-
   SECTION("Testing getMemberID() function"){
     REQUIRE(member1.getMemberID() == "1");
   }
 }
-
 // Testing Librarian class
 TEST_CASE("Testing Librarian class", "[Librarian]"){
   Librarian librarian1(1, "yash", "La Rosa", "yash@example.com", 40000);
@@ -77,11 +66,9 @@ TEST_CASE("Testing Librarian class", "[Librarian]"){
   SECTION("Testing getStaffID() function"){
     REQUIRE(librarian1.getStaffID() == 1);
   }
-
   SECTION("Testing getSalary() function"){
     REQUIRE(librarian1.getSalary() == 40000);
   }
-
   SECTION("Testing getName() function"){
     REQUIRE(librarian1.getName() == "yash");
   }
@@ -98,15 +85,15 @@ TEST_CASE("Testing Librarian class", "[Librarian]"){
 // Test for date ADT
 TEST_CASE("Testing date ADT", "[Date]"){
   Date birthdate(8,10,2002);
-  
+
   SECTION("Testing getDay() function"){
     REQUIRE(birthdate.getDay() == 8);
   }
-  
+
   SECTION("Testing getMonth() function"){
     REQUIRE(birthdate.getMonth() == 10);
   }
-  
+
   SECTION("Testing getYear() function"){
     REQUIRE(birthdate.getYear() == 2002);
   }

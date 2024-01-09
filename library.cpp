@@ -2,7 +2,37 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "person.h"
+#include "member.h"
+#include "librarian.h"
+#include "book.h"
 
+// function to add a Member
+std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*> members){
+  int memberID;
+  std::string name;
+  std::string address;
+  std::string email;
+  std::cout << "Input name of member: " << std::endl;
+  std::cin >> name;
+  std::cout << "Input address of member: " << std::endl;
+  std::cin >> address;
+  std::cout << "Input email of member: " << std::endl;
+  std::cin >> email;
+  memberID = members.size() + 1;
+  members.push_back(new Member(memberID,name, address, email));
+  std::cout << "Member added successfully!" << std::endl;
+  return members;
+}
+
+void borrowBook(){
+}
+
+void returnBook(){
+}
+
+void displayBorrowedBooks(){
+}
 // function to clear the screen
 void clear(){
   std::cout << "\033c";
@@ -24,6 +54,10 @@ int main(int argc, char *argv[]){
     exit(1);
   }
 
+  // creating a librarian object
+  Librarian* librarian = new Librarian(1, "Shana", "New Grove", "s@gamil.com", 25000);
+  std::vector<Member*> members;
+  std::vector<Book*> books;
   std::string line;
   std::string::size_type i;
   std::string temp="";
@@ -57,9 +91,7 @@ int main(int argc, char *argv[]){
 	  temp = temp + line[i];
 	}
       }
-      std::cout << bookID << std::endl << bookName << std::endl <<
-	  authorFirstName << std::endl << authorLastName << std::endl;
-      std::cout << line[i] << std::endl;
+      books.push_back(new Book(bookID, bookName, authorFirstName, authorLastName));
     }
     fileLine = fileLine + 1;
   }
@@ -78,16 +110,16 @@ int main(int argc, char *argv[]){
     std::cin >> option;
     if (option == 1){
       clear();
-      std::cout << "option1" << std::endl;
+      members = addMember(librarian, members);
     } else if (option == 2){
       clear();
-      std::cout << "option2" << std::endl;
+      borrowBook();
     } else if (option == 3) {
       clear();
-      std::cout << "option3" << std::endl;
+      returnBook();
     } else if (option == 4) {
       clear();
-      std::cout << "option4" << std::endl;
+      displayBorrowedBooks();
     } else if (option == 5) {
       exit = 1;
     } else {
@@ -95,5 +127,14 @@ int main(int argc, char *argv[]){
       std::cout << "Invalid option. Please try again!\n" << std::endl;
     }
   }
+  for(std::vector<Book*>::size_type j = 0;j<books.size();j++){
+    delete books[j];
+  }
+  books.clear();
+  
+  for(std::vector<Member*>::size_type k = 0;k<members.size();k++){
+    delete members[k];
+  }
+  members.clear();
   return 0;
 }
