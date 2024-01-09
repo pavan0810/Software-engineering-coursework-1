@@ -1,4 +1,5 @@
 #include "member.h"
+#include "book.h"
 #include <string>
 #include <vector>
 

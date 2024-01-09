@@ -1,9 +1,9 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 #include "person.h"
-#include "book.h"
 #include <string>
 #include <vector>
+class Book;
 class Member : public Person {
  public:
   Member(int memberID, std::string name, std::string address, std:: string email);
