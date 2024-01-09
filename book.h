@@ -1,9 +1,9 @@
 #ifndef BOOK_H
 #define BOOK_H
-#include "member.h"
 #include "date.h"
 #include <string>
 #include <vector>
+class Member;
 class Book {
  public:
   Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName);
@@ -22,6 +22,6 @@ class Book {
   std::string authorLastName;
   std::string bookType;
   Date dueDate;
-  Member borrower;
+  Member* borrower;
 };
 #endif

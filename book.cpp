@@ -1,6 +1,7 @@
 #include "book.h"
+#include "member.h"
 #include <string>
-Book::Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName){
+Book::Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName):dueDate(0,0,0){
   this->bookID = bookID;
   this->bookName = bookName;
   this->authorFirstName = authorFirstName;
@@ -28,7 +29,7 @@ Date Book::getDueDate() const{
 }
 
 void Book::setDueDate(Date dueDate){
-  dueDate = due_date;
+  this->dueDate = dueDate;
 }
 
 void Book::returnBook(){
