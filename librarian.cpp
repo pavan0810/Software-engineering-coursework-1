@@ -28,6 +28,7 @@ void Librarian::returnBook(int memberID, int bookID){
 }
 
 void Librarian::displayBorrowedBooks(int memberID){
+  std::cout << "The books borrowed by member " << memberID << " are:" << std::endl;
 }
 
 void Librarian::calcFine(int memberID) {
