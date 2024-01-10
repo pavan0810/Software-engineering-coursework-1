@@ -1,5 +1,9 @@
 #include "librarian.h"
+#include "member.h"
 #include <string>
+#include <vector>
+#include <iostream>
+
 Librarian::Librarian(int staffID, std::string name, std::string address, std::string email, int salary) {
   setStaffID(staffID);
   setSalary(salary);

@@ -1,7 +1,7 @@
 #include "book.h"
 #include "member.h"
 #include <string>
-Book::Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName):dueDate(0,0,0){
+Book::Book(int bookID, std::string bookName, std::string authorFirstName, std::string authorLastName):dueDate(new Date(0,0,0)){
   this->bookID = bookID;
   this->bookName = bookName;
   this->authorFirstName = authorFirstName;
@@ -24,16 +24,18 @@ std::string Book::getAuthorLastName() const{
   return authorLastName;
 }
 
-Date Book::getDueDate() const{
+Date* Book::getDueDate() const{
   return dueDate;
 }
 
-void Book::setDueDate(Date dueDate){
+void Book::setDueDate(Date* dueDate){
   this->dueDate = dueDate;
 }
 
 void Book::returnBook(){
 }
 
-void Book::borrowBook(Member borrower, Date dueDate){
+void Book::borrowBook(Member* borrower, Date* dueDate){
+  this->borrower = borrower;
+  setDueDate(dueDate);
 }

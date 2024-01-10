@@ -8,11 +8,11 @@ class Member : public Person {
  public:
   Member(int memberID, std::string name, std::string address, std:: string email);
   std::string getMemberID() const;
-  std::vector<Book> getBooksBorrowed() const;
-  void setBooksBorrowed(Book book);
+  std::vector<Book*> getBooksBorrowed() const;
+  void setBooksBorrowed(Book* book);
   
  private:
   int memberId;
-  std::vector<Book> booksLoaned;
+  std::vector<Book*> booksLoaned;
 };
 #endif

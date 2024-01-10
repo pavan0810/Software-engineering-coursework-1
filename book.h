@@ -11,17 +11,17 @@ class Book {
   std::string getbookName() const;
   std::string getAuthorFirstName() const;
   std::string getAuthorLastName() const;
-  Date getDueDate() const;
-  void setDueDate(Date dueDate);
+  Date* getDueDate() const;
+  void setDueDate(Date* dueDate);
   void returnBook();
-  void borrowBook(Member borrower, Date dueDate);
+  void borrowBook(Member* borrower, Date* dueDate);
  private:
   int bookID;
   std::string bookName;
   std::string authorFirstName;
   std::string authorLastName;
   std::string bookType;
-  Date dueDate;
+  Date* dueDate;
   Member* borrower;
 };
 #endif

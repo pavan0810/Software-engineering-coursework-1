@@ -14,10 +14,10 @@ std::string Member::getMemberID() const{
   return std::to_string(memberId);
 }
 
-std::vector<Book> Member::getBooksBorrowed() const{
+std::vector<Book*> Member::getBooksBorrowed() const{
   return booksLoaned;
 }
 
-void Member::setBooksBorrowed(Book book){
-  book = book;
+void Member::setBooksBorrowed(Book* book){
+  booksLoaned.push_back(book);
 }

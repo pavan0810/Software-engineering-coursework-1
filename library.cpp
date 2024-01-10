@@ -8,7 +8,7 @@
 #include "book.h"
 
 // function to add a Member
-std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*> members){
+std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*>& members){
   int memberID;
   std::string name;
   std::string address;
@@ -21,11 +21,81 @@ std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*> member
   std::cin >> email;
   memberID = members.size() + 1;
   members.push_back(new Member(memberID,name, address, email));
-  std::cout << "Member added successfully!" << std::endl;
+  std::cout << members[0]->getMemberID() << members[0]->getName() << members[0]->getEmail()<< members[0]->getAddress() << std::endl;
   return members;
 }
 
-void borrowBook(){
+void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector<Book*>& books, std::vector<Date*>& dates){
+  Book* book;
+  Member* member;
+  int exit = 0;
+  int memberID;
+  int bookID;
+  bool foundMember = false;
+  bool foundBook = false;
+  int day;
+  int month;
+  int year;
+  std::string choice;
+  std::cout << "Please input MemberID: " << std::endl;
+  std::cin >> memberID;
+  std::cout << "Please input BookID: " << std::endl;
+  std::cin >> bookID;
+  if(!members.empty() || !books.empty()){
+    for(int i=0;i<members.size();i++){
+      if(std::to_string(memberID) == members[i]->getMemberID()){
+	foundMember = true;
+	member = members[i];
+      }
+    }
+    for(int j=0;j<books.size();j++){
+      if(std::to_string(bookID) == books[j]->getbookID()){
+	foundBook = true;
+	book = books[j];
+      }
+    }
+    
+    while(foundMember == false || foundBook == false){
+      std::cout << "BookID or MemberID does not exist, please input again!" << std::endl;
+      std::cout << "Do you want to continue input?[y/n]" << std::endl;
+      std::cin >> choice;
+      if (choice == "y" || choice == "Y"){
+	std::cout << "Please input MemberID: " << std::endl;
+	std::cin >> memberID;
+	std::cout << "Please input BookID: " << std::endl;
+	std::cin >> bookID;
+	for(int i=0;i<members.size();i++){
+	  if(std::to_string(memberID) == members[i]->getMemberID()){
+	    foundMember = true;
+	    member = members[i];
+	  }
+	}
+	for(int j=0;j<books.size();j++){
+	  if(std::to_string(bookID) == books[j]->getbookID()){
+	    foundBook = true;
+	    book = books[j];
+	  }
+	}
+      } else {
+	exit = 1;
+	break;
+      }    
+    }
+    if(exit != 1) {
+      std::cout << "borrowbooks";
+      std::cout << "Please input today's date in the form day month year: " << std::endl;
+      std::cin >> day >> month >> year;
+      Date* dueDate = new Date(day, month, year);
+      dates.push_back(dueDate);
+      book->setDueDate(dueDate);
+      book->borrowBook(member, dueDate);
+      member->setBooksBorrowed(book);
+      std::cout << book->getDueDate() << std::endl;
+    }
+  } else {
+    std::cout << "No member has been registered" << std::endl;
+  } 
+  
 }
 
 void returnBook(){
@@ -56,6 +126,7 @@ int main(int argc, char *argv[]){
 
   // creating a librarian object
   Librarian* librarian = new Librarian(1, "Shana", "New Grove", "s@gamil.com", 25000);
+  std::vector<Date*> dates;
   std::vector<Member*> members;
   std::vector<Book*> books;
   std::string line;
@@ -113,7 +184,7 @@ int main(int argc, char *argv[]){
       members = addMember(librarian, members);
     } else if (option == 2){
       clear();
-      borrowBook();
+      borrowBook(librarian, members, books, dates);
     } else if (option == 3) {
       clear();
       returnBook();
@@ -134,6 +205,10 @@ int main(int argc, char *argv[]){
   
   for(std::vector<Member*>::size_type k = 0;k<members.size();k++){
     delete members[k];
+  }
+
+  for(std::vector<Date*>::size_type l = 0;l<dates.size();l++){
+    delete dates[l];
   }
   members.clear();
   return 0;
