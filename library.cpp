@@ -8,7 +8,7 @@
 #include "book.h"
 
 // function to add a Member
-std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*>& members){
+void addMember(Librarian* librarian, std::vector<Member*>& members){
   int memberID;
   std::string name;
   std::string address;
@@ -20,11 +20,17 @@ std::vector<Member*> addMember(Librarian* librarian, std::vector<Member*>& membe
   std::cout << "Input email of member: " << std::endl;
   std::cin >> email;
   memberID = members.size() + 1;
-  members.push_back(new Member(memberID,name, address, email));
-  std::cout << members[0]->getMemberID() << members[0]->getName() << members[0]->getEmail()<< members[0]->getAddress() << std::endl;
-  return members;
+  Member* newMember = new Member(memberID,name, address, email);
+  members.push_back(newMember);
+  std::cout << "----------------------------------------------------------------------" << std::endl;
+  std::cout << "MemberID: " <<  newMember->getMemberID() << std::endl <<
+    "Name: " << newMember->getName() << std::endl <<
+    "Email: " << newMember->getEmail()<< std::endl <<
+    "Address: " << newMember->getAddress() << std::endl;
+  std::cout << "----------------------------------------------------------------------" << std::endl;
 }
 
+// function to issue a book
 void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector<Book*>& books, std::vector<Date*>& dates){
   Book* book;
   Member* member;
@@ -41,7 +47,7 @@ void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector
   std::cin >> memberID;
   std::cout << "Please input BookID: " << std::endl;
   std::cin >> bookID;
-  if(!members.empty() || !books.empty()){
+  if(members.size() != 0 && books.size() != 0){
     for(int i=0;i<members.size();i++){
       if(std::to_string(memberID) == members[i]->getMemberID()){
 	foundMember = true;
@@ -82,15 +88,43 @@ void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector
       }    
     }
     if(exit != 1) {
-      std::cout << "borrowbooks";
       std::cout << "Please input today's date in the form day month year: " << std::endl;
       std::cin >> day >> month >> year;
+      // calculating the due date
+      if (day > 28 && month == 12){
+	day = day + 3 - 31;
+	month = 1;
+	year = year + 1;
+      } else if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 12) {
+	if (day > 28) {
+	  day = day + 3 - 31;
+	  month = month + 1;
+	} else {
+	  day = day + 3;
+	}
+      } else {
+	if(month == 2){
+	  if(day > 25) {
+	    day = day + 3 - 28;
+	    month = month + 1;
+	  } else {
+	    day = day + 3;
+	  }
+	} else {
+	  if(day > 27){
+	    day = day + 3 - 30;
+	    month = month + 1;
+	  } else {
+	    day = day + 3;
+	  }
+	}
+      }
       Date* dueDate = new Date(day, month, year);
       dates.push_back(dueDate);
       book->setDueDate(dueDate);
       book->borrowBook(member, dueDate);
       member->setBooksBorrowed(book);
-      std::cout << book->getDueDate() << std::endl;
+      librarian->issueBook(memberID, bookID);
     }
   } else {
     std::cout << "No member has been registered" << std::endl;
@@ -172,16 +206,18 @@ int main(int argc, char *argv[]){
   int option;
   while (exit != 1){
     std::cout << "Welcome to the main menu.\n" << std::endl;
+    std::cout << "----------------------------------------------" << std::endl;
     std::cout << "1. Add Member" << std::endl;
     std::cout << "2. Borrow Book" << std::endl;
     std::cout << "3. Return Book" << std::endl;
     std::cout << "4. View all borrowed books" << std::endl;
     std::cout << "5. Exit\n" << std::endl;
+    std::cout << "----------------------------------------------" << std::endl;
     std::cout << "Enter the number for the option: " << std::endl;
     std::cin >> option;
     if (option == 1){
       clear();
-      members = addMember(librarian, members);
+      addMember(librarian, members);
     } else if (option == 2){
       clear();
       borrowBook(librarian, members, books, dates);

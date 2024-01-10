@@ -1,5 +1,6 @@
 #include "librarian.h"
 #include "member.h"
+#include <iostream>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -16,6 +17,11 @@ void Librarian::addMember() {
 }
 
 void Librarian::issueBook(int memberID, int bookID) {
+  std::cout << "------------------------------------------------------------------------" << std::endl;
+  std::cout << "Registration completed! Book can be issued to Member." << std::endl;
+  std::cout << "Member ID: " << memberID << std::endl;
+  std::cout << "Book ID: " << bookID << std::endl;
+  std::cout << "------------------------------------------------------------------------" << std::endl;
 }
 
 void Librarian::returnBook(int memberID, int bookID){
