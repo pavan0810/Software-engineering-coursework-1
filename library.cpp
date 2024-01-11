@@ -7,7 +7,12 @@
 #include "librarian.h"
 #include "book.h"
 
-// function to add a Member
+/**
+   Function to add a member to the library system
+   @param librarian is a pointer to the librarian object
+   @param vector<Member*> stores all the members for the library
+   
+ */
 void addMember(Librarian* librarian, std::vector<Member*>& members){
   int memberID;
   std::string name;
@@ -30,7 +35,14 @@ void addMember(Librarian* librarian, std::vector<Member*>& members){
   std::cout << "----------------------------------------------------------------------" << std::endl;
 }
 
-// function to issue a book
+/**
+   Function to borrow a book from the library
+   @param librarian is a pointer to the librarian object
+   @param vector<Member*> stores all the members for the library
+   @param vector<Book*> stores all the books in the library
+   @param vector<Date*> stores all the dates for the books
+   
+ */
 void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector<Book*>& books, std::vector<Date*>& dates){
   Book* book;
   Member* member;
@@ -128,11 +140,21 @@ void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector
     }
   } else {
     std::cout << "No member has been registered" << std::endl;
-  } 
+  }
   
 }
 
-// function to calculate the date difference
+/**
+   Function to calculate after how many days the member is returning a book
+   @param day stores the day when the book was returned
+   @param month stores the month the book was returned
+   @param year stores the year the book was returned
+   @param returnDay stores the day of the due date
+   @param returnMonth stores the month of the due date
+   @param returnYear stores the year of the due date
+   @return the difference between the return date and due date for the book
+   
+ */
 int dateDifference(int day, int month, int year, int returnDay, int returnMonth, int returnYear){
   int totalDaysReturn = 0;
   int totalDays = 0;
@@ -148,7 +170,6 @@ int dateDifference(int day, int month, int year, int returnDay, int returnMonth,
       }
     }
     totalDays = totalDays + day;
-    std::cout << totalDays << std::endl;
     for(int j=1;j<returnMonth;j++){
       if (j==1 || j==3 || j==5 || j==7 || j==8 || j==10 || j==12 ) {
 	totalDaysReturn = totalDaysReturn + 31;
@@ -159,7 +180,6 @@ int dateDifference(int day, int month, int year, int returnDay, int returnMonth,
       }
     }
     totalDaysReturn = totalDaysReturn + returnDay;
-     std::cout << totalDaysReturn << std::endl;
   } else {
     for(int i=1;i<month;i++){
       if (i==1 || i==3 || i==5 || i==7 || i==8 || i==10 || i==12 ) {
@@ -170,7 +190,7 @@ int dateDifference(int day, int month, int year, int returnDay, int returnMonth,
 	totalDays = totalDays + 30;
       }
     }
-    totalDays = totalDays + day;
+    totalDays = totalDays + day + 365;
     for(int j=1;j<returnMonth;j++){
       if (j==1 || j==3 || j==5 || j==7 || j==8 || j==10 || j==12 ) {
 	totalDaysReturn = totalDaysReturn + 31;
@@ -180,13 +200,19 @@ int dateDifference(int day, int month, int year, int returnDay, int returnMonth,
 	totalDaysReturn = totalDaysReturn + 30;
       }
     }
-    totalDaysReturn = totalDaysReturn + returnDay + 365;
+    totalDaysReturn = totalDaysReturn + returnDay;
   }
   difference = totalDays - totalDaysReturn;
   return difference;
 }
 
-// function to return a book
+/**
+   Function to return a book to the library
+   @param librarian is a pointer to the librarian object
+   @param vector<Member*> stores all the members for the library
+   @param vector<Book*> stores all the books in the library
+   
+ */
 void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector<Book*>& books){
   Book* book;
   Member* member;
@@ -270,7 +296,6 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
 	}
 	if (memberBook == true){
 	  diffDate = dateDifference(day, month, year, returnDay, returnMonth, returnYear);
-	  std::cout << diffDate;
 	  if (diffDate > 3) {
 	    librarian->calcFine(memberID);
 	    std::cout << "£ " << diffDate << std::endl;
@@ -294,6 +319,12 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
   }
 }
 
+/**
+   Function to display all borrowe dbooks by a member
+   @param librarian is a pointer to the librarian object
+   @param vector<Member*> stores all the members for the library
+   
+ */
 void displayBorrowedBooks(std::vector<Member*>& members, Librarian* librarian){
   int memberID;
   bool foundMember = false;
@@ -345,6 +376,7 @@ void displayBorrowedBooks(std::vector<Member*>& members, Librarian* librarian){
     std::cout << "No member has been created. Create a member first.";
   }
 }
+
 // function to clear the screen
 void clear(){
   std::cout << "\033c";
@@ -431,7 +463,7 @@ int main(int argc, char *argv[]){
       borrowBook(librarian, members, books, dates);
     } else if (option == 3) {
       clear();
-      returnBook(librarian,members, books);
+      returnBook(librarian, members, books);
     } else if (option == 4) {
       clear();
       displayBorrowedBooks(members, librarian);

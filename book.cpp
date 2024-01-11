@@ -32,11 +32,18 @@ void Book::setDueDate(Date* dueDate){
   this->dueDate = dueDate;
 }
 
+/**
+   sets the dueDate and borrower to null when member returns the book
+   
+ */
 void Book::returnBook(){
   dueDate = nullptr;
   borrower = nullptr;
 }
 
+/**
+   Sets the borrower and due date for the book when a member is borrowing the book
+ */
 void Book::borrowBook(Member* borrower, Date* dueDate){
   this->borrower = borrower;
   setDueDate(dueDate);
