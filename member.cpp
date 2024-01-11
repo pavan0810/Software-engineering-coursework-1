@@ -18,6 +18,11 @@ std::vector<Book*> Member::getBooksBorrowed() const{
   return booksLoaned;
 }
 
+
 void Member::setBooksBorrowed(Book* book){
-  booksLoaned.push_back(book);
+  if(book->getbookName() == "remove"){
+    booksLoaned.clear();
+  } else {
+    booksLoaned.push_back(book);
+  }
 }

@@ -132,7 +132,166 @@ void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector
   
 }
 
-void returnBook(){
+// function to calculate the date difference
+int dateDifference(int day, int month, int year, int returnDay, int returnMonth, int returnYear){
+  int totalDaysReturn = 0;
+  int totalDays = 0;
+  int difference = 0;
+  if(year == returnYear){
+    for(int i=1;i<month;i++){
+      if (i==1 || i==3 || i==5 || i==7 || i==8 || i==10 || i==12 ) {
+        totalDays = totalDays + 31;
+      } else if(i==2) {
+	totalDays = totalDays + 28;
+      } else {
+	totalDays = totalDays + 30;
+      }
+    }
+    totalDays = totalDays + day;
+    std::cout << totalDays << std::endl;
+    for(int j=1;j<returnMonth;j++){
+      if (j==1 || j==3 || j==5 || j==7 || j==8 || j==10 || j==12 ) {
+	totalDaysReturn = totalDaysReturn + 31;
+      } else if(j==2) {
+	totalDaysReturn = totalDaysReturn + 28;
+      } else {
+	totalDaysReturn = totalDaysReturn + 30;
+      }
+    }
+    totalDaysReturn = totalDaysReturn + returnDay;
+     std::cout << totalDaysReturn << std::endl;
+  } else {
+    for(int i=1;i<month;i++){
+      if (i==1 || i==3 || i==5 || i==7 || i==8 || i==10 || i==12 ) {
+	totalDays = totalDays + 31;
+      } else if(i==2) {
+	totalDays = totalDays + 28;
+      } else {
+	totalDays = totalDays + 30;
+      }
+    }
+    totalDays = totalDays + day;
+    for(int j=1;j<returnMonth;j++){
+      if (j==1 || j==3 || j==5 || j==7 || j==8 || j==10 || j==12 ) {
+	totalDaysReturn = totalDaysReturn + 31;
+      } else if(j==2) {
+	totalDaysReturn = totalDaysReturn + 28;
+      } else {
+	totalDaysReturn = totalDaysReturn + 30;
+      }
+    }
+    totalDaysReturn = totalDaysReturn + returnDay + 365;
+  }
+  difference = totalDays - totalDaysReturn;
+  return difference;
+}
+
+// function to return a book
+void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector<Book*>& books){
+  Book* book;
+  Member* member;
+  int exit = 0;
+  int memberID;
+  int bookID;
+  bool foundMember = false;
+  bool foundBook = false;
+  bool memberBook = false;
+  std::string choice;
+  Date* dueDate;
+  int day;
+  int month;
+  int year;
+  int returnDay;
+  int returnMonth;
+  int returnYear;
+  int diffDate;
+  std::vector<Book*> booksLoaned;
+  if(members.size() != 0 && books.size() != 0){
+    std::cout << "Please input MemberID: " << std::endl;
+    std::cin >> memberID;
+    std::cout << "Please input BookID: " << std::endl;
+    std::cin >> bookID;
+    for(int i=0;i<members.size();i++){
+      if(std::to_string(memberID) == members[i]->getMemberID()){
+	foundMember = true;
+	member = members[i];
+      }
+    }
+    for(int j=0;j<books.size();j++){
+      if(std::to_string(bookID) == books[j]->getbookID()){
+	foundBook = true;
+	book = books[j];
+      }
+    }
+    
+    while(foundMember == false || foundBook == false){
+      std::cout << "BookID or MemberID does not exist, please input again!" << std::endl;
+      std::cout << "Do you want to continue input?[y/n]" << std::endl;
+      std::cin >> choice;
+      if (choice == "y" || choice == "Y"){
+	std::cout << "Please input MemberID: " << std::endl;
+	std::cin >> memberID;
+	std::cout << "Please input BookID: " << std::endl;
+	std::cin >> bookID;
+	for(int i=0;i<members.size();i++){
+	  if(std::to_string(memberID) == members[i]->getMemberID()){
+	    foundMember = true;
+	    member = members[i];
+	  }
+	}
+	for(int j=0;j<books.size();j++){
+	  if(std::to_string(bookID) == books[j]->getbookID()){
+	    foundBook = true;
+	    book = books[j];
+	  }
+	}
+      } else {
+	exit = 1;
+	break;
+      }    
+    }
+    if(exit != 1) {
+      booksLoaned = member->getBooksBorrowed();
+      if (booksLoaned.size() == 0){
+	std::cout << "Member with memberID " << memberID << " has not borrowed this book!" << std::endl; 
+      } else {
+	for(int i=0;i<booksLoaned.size();i++) {
+	  if (booksLoaned[i]->getbookID() == std::to_string(bookID)){
+	    std::cout << "Input today's date in the form day month year: " << std::endl;
+	    std::cin >> day >> month >> year;
+	    memberBook = true;
+	    dueDate = book->getDueDate();
+            returnDay = dueDate->getDay();
+	    returnMonth = dueDate->getMonth();
+	    returnYear = dueDate->getYear();
+	    member->setBooksBorrowed(new Book(0, "remove", "remove", "remove"));
+	    break;
+	  }
+	}
+	if (memberBook == true){
+	  diffDate = dateDifference(day, month, year, returnDay, returnMonth, returnYear);
+	  std::cout << diffDate;
+	  if (diffDate > 3) {
+	    librarian->calcFine(memberID);
+	    std::cout << "£ " << diffDate << std::endl;
+	  }
+	  book->returnBook();
+	  librarian->returnBook(memberID, bookID);
+
+	  // adding books borrowed except return book to booksLoaned for member
+	  for(int i=0;i<booksLoaned.size();i++){
+	    if (!(booksLoaned[i]->getbookID() == std::to_string(bookID))){
+	      member->setBooksBorrowed(booksLoaned[i]);
+	    }
+	  }
+	} else {
+	  std::cout << "This book has not been borrowed by member!" << std::endl;
+	}
+      }
+    }
+  } else {
+    std::cout << "No member has been registered" << std::endl;
+  }
 }
 
 void displayBorrowedBooks(std::vector<Member*>& members, Librarian* librarian){
@@ -272,7 +431,7 @@ int main(int argc, char *argv[]){
       borrowBook(librarian, members, books, dates);
     } else if (option == 3) {
       clear();
-      returnBook();
+      returnBook(librarian,members, books);
     } else if (option == 4) {
       clear();
       displayBorrowedBooks(members, librarian);

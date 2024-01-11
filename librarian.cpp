@@ -25,6 +25,7 @@ void Librarian::issueBook(int memberID, int bookID) {
 }
 
 void Librarian::returnBook(int memberID, int bookID){
+  std::cout << "The member with ID " << memberID << " has returned the book with ID " << bookID << std::endl;  
 }
 
 void Librarian::displayBorrowedBooks(int memberID){
@@ -32,6 +33,8 @@ void Librarian::displayBorrowedBooks(int memberID){
 }
 
 void Librarian::calcFine(int memberID) {
+  std::cout << "The member with memberID " << memberID << " has exceeded the due date." << std::endl;
+  std::cout << "The fine to be paid is: " << std::endl; 
 }
 
 int Librarian::getStaffID() const {
