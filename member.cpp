@@ -29,6 +29,7 @@ std::vector<Book*> Member::getBooksBorrowed() const{
  */
 void Member::setBooksBorrowed(Book* book){
   if(book->getbookName() == "remove"){
+    delete book;
     booksLoaned.clear();
   } else {
     booksLoaned.push_back(book);
