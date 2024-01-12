@@ -79,17 +79,22 @@ void borrowBook(Librarian* librarian, std::vector<Member*>& members, std::vector
       std::cout << "Do you want to continue input?[y/n]" << std::endl;
       std::cin >> choice;
       std::cout << "----------------------------------------------------------------------" << std::endl;
+      // check if librarian wants to continue input
       if (choice == "y" || choice == "Y"){
 	std::cout << "Please input MemberID: " << std::endl;
 	std::cin >> memberID;
 	std::cout << "Please input BookID: " << std::endl;
 	std::cin >> bookID;
+	
+	// search member
 	for(std::vector<Member*>::size_type i=0;i<members.size();i++){
 	  if(std::to_string(memberID) == members[i]->getMemberID()){
 	    foundMember = true;
 	    member = members[i];
 	  }
 	}
+	
+	// search book
 	for(std::vector<Book*>::size_type j=0;j<books.size();j++){
 	  if(std::to_string(bookID) == books[j]->getbookID()){
 	    foundBook = true;
@@ -236,17 +241,22 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
   int returnYear;
   int diffDate;
   std::vector<Book*> booksLoaned;
+  // check if no members have been registered or book vector is empty
   if(members.size() != 0 && books.size() != 0){
     std::cout << "Please input MemberID: " << std::endl;
     std::cin >> memberID;
     std::cout << "Please input BookID: " << std::endl;
     std::cin >> bookID;
+    
+    // search member
     for(std::vector<Member*>::size_type i=0;i<members.size();i++){
       if(std::to_string(memberID) == members[i]->getMemberID()){
 	foundMember = true;
 	member = members[i];
       }
     }
+    
+    // search book
     for(std::vector<Book*>::size_type j=0;j<books.size();j++){
       if(std::to_string(bookID) == books[j]->getbookID()){
 	foundBook = true;
@@ -259,6 +269,8 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
       std::cout << "BookID or MemberID does not exist, please input again!" << std::endl;
       std::cout << "Do you want to continue input?[y/n]" << std::endl;
       std::cin >> choice;
+      
+      // check if librarian want to continue input
       if (choice == "y" || choice == "Y"){
 	std::cout << "Please input MemberID: " << std::endl;
 	std::cin >> memberID;
@@ -300,6 +312,8 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
 	    break;
 	  }
 	}
+
+	// check if member has borrowed the book
 	if (memberBook == true){
 	  diffDate = dateDifference(day, month, year, returnDay, returnMonth, returnYear);
 	  if (diffDate > 3) {
@@ -342,6 +356,8 @@ void displayBorrowedBooks(std::vector<Member*>& members, Librarian* librarian){
   std::vector<Book*> booksBorrowed;
   std::cout << "Please enter member ID of member to view all books borrowed by member: " << std::endl;
   std::cin >> memberID;
+
+  // check if no member has been registered
   if(members.size() != 0) {
     for(std::vector<Member*>::size_type i=0;i<members.size();i++){
       if(std::to_string(memberID) == members[i]->getMemberID()){
@@ -355,6 +371,8 @@ void displayBorrowedBooks(std::vector<Member*>& members, Librarian* librarian){
       std::cout << "MemberID entered is not valid, please input again or exit!" << std::endl;
       std::cout << "Do you want to continue input?[y/n]" << std::endl;
       std::cin >> choice;
+
+      // checks if librarian wants to continue input
       if (choice == "y" || choice == "Y"){
 	std::cout << "Please enter member ID of member to view all books borrowed by member: " << std::endl;
 	std::cin >> memberID;
@@ -425,7 +443,9 @@ int main(int argc, char *argv[]){
   std::string authorLastName;
   std::string bookName;
   int fileLine = 0;
+  
   // read the file line by line until end of file
+  // creating all book objects
   while(getline(file, line)){
     if (fileLine != 0){
       count = 1;
@@ -457,6 +477,8 @@ int main(int argc, char *argv[]){
   
   int exit = 0;
   int option;
+
+  // The menu for the library system
   while (exit != 1){
     std::cout << "Welcome to the main menu!\n" << std::endl;
     std::cout << "----------------------------------------------" << std::endl;
