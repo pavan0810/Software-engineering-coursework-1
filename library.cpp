@@ -316,7 +316,7 @@ void returnBook(Librarian* librarian, std::vector<Member*>& members, std::vector
 	// check if member has borrowed the book
 	if (memberBook == true){
 	  diffDate = dateDifference(day, month, year, returnDay, returnMonth, returnYear);
-	  if (diffDate > 3) {
+	  if (diffDate > 0) {
 	    librarian->calcFine(memberID);
 	    std::cout << "£ " << diffDate << std::endl;
 	    std::cout << "----------------------------------------------------------------------" << std::endl;
